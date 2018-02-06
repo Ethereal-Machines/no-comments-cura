@@ -11,12 +11,13 @@ class NoComments(Script):
 
     def execute(self, data: list):
         ''' Data is a list with each layer as an element '''
-        temp = []
+        temp_data = []
         for layer in data:
             lines = layer.split("\n")
+            temp = []
             for line in lines:
                 if line.startswith(';'):
                     continue
                 temp.append(line)
-        data = temp
-        return data
+            temp_data.extend(temp)
+        return temp_data
