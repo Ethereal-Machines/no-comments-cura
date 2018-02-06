@@ -7,7 +7,7 @@ class NoComments(Script):
         super().__init__()
 
     def getSettingDataString(self):
-        return
+        return {}
 
     def execute(self, data: list):
         ''' Data is a list with each layer as an element '''
