@@ -1,8 +1,8 @@
 {
-    "name": "Post Processing",
+    "name": "No comments Gcode",
     "author": "Ultimaker",
     "version": "2.2",
     "api": 4,
-    "description": "Extension that allows for user created scripts for post processing",
+    "description": "Extension that allows to remove the comments",
     "catalog": "cura"
 }

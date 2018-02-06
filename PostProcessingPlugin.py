@@ -22,7 +22,7 @@ i18n_catalog = i18nCatalog("cura")
 class PostProcessingPlugin(QObject, Extension):
     def __init__(self, parent = None):
         super().__init__(parent)
-        self.addMenuItem(i18n_catalog.i18n("Modify G-Code"), self.showPopup)
+        self.addMenuItem(i18n_catalog.i18n("Remove Comments"), self.showPopup)
         self._view = None
 
         # Loaded scripts are all scripts that can be used
@@ -67,18 +67,13 @@ class PostProcessingPlugin(QObject, Extension):
         if not gcode_list:
             return
 
-        if ";POSTPROCESSED" not in gcode_list[0]:
-            for script in self._script_list:
-                try:
-                    gcode_list = script.execute(gcode_list)
-                except Exception:
-                    Logger.logException("e", "Exception in post-processing script.")
-            if len(self._script_list):  # Add comment to g-code if any changes were made.
-                gcode_list[0] += ";POSTPROCESSED\n"
-            gcode_dict[active_build_plate_id] = gcode_list
-            setattr(scene, "gcode_dict", gcode_dict)
-        else:
-            Logger.log("e", "Already post processed")
+        for script in self._script_list:
+            try:
+                gcode_list = script.execute(gcode_list)
+            except Exception:
+                Logger.logException("e", "Exception in No comments script.")
+        gcode_dict[active_build_plate_id] = gcode_list
+        setattr(scene, "gcode_dict", gcode_dict)
 
     @pyqtSlot(int)
     def setSelectedScriptIndex(self, index):
